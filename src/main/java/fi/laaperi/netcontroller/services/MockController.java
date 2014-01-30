@@ -86,7 +86,7 @@ public class MockController implements Runnable{
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			serverSocket.receive(receivePacket);
 			String msg = new String(receivePacket.getData()).trim();
-			logger.info("Received: " + msg);
+			logger.debug("Received: " + msg);
 			
 			//Reply
 			InetAddress IPAddress = receivePacket.getAddress();
@@ -95,7 +95,7 @@ public class MockController implements Runnable{
 			sendData = response.getBytes();
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 			serverSocket.send(sendPacket);
-			logger.info("Responded: " + response);
+			logger.debug("Responded: " + response);
 			
 			//Init buffers
 			Arrays.fill(receiveData, (byte)0);
