@@ -35,7 +35,7 @@ public class UDPService {
 		mockController.stop();
 	}
 	
-	public String sendMessage(String msg) throws Exception {
+	public String sendMessage(String msg) {
 		logger.info("Sending message: " + msg);
 		
 		String response = "";
@@ -60,8 +60,10 @@ public class UDPService {
 			
 		} catch (SocketTimeoutException e) {
 			logger.error("Controller ureachable");
+		} catch (Exception e){
+			e.printStackTrace();
 		}
-		return response;
+		return response.trim();
 	}
 	
 }
