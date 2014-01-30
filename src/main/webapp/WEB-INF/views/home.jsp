@@ -3,11 +3,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
   	<base href="/netcontroller/"/>
     <title>NetController</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap_jumbo.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
     <link href="css/netcontroller.css" rel="stylesheet">
   </head>
   <body>
@@ -22,8 +24,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">NetController</a>
-          <a class="navbar-brand" href="sensors">Sensors</a>
-          <a class="navbar-brand" href="relays">Relays</a>
+          <a class="navbar-brand" href="settings">Settings</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
@@ -50,10 +51,11 @@
 	  </div>
       
       <div class="row">
-      
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">Sensors</div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+			  <h3 class="panel-title">Sensors</h3>
+			</div>
             <div class="list-group">
               
               <!-- ADD SENSORS -->
@@ -73,8 +75,10 @@
         </div>
         
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">Relays</div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Relays</h3>
+			</div>
             
             <div class="list-group">
               
@@ -82,10 +86,17 @@
               <c:if test="${not empty relays}">
                 <c:forEach var="relay" varStatus="status" items="${relays}">
                   <a href="relay?id=${relay.id}" class="list-group-item">
+                  
+                  
                     <h4 class="list-group-item-heading">${relay.name}</h4>
-                    <p class="list-group-item-text">
+                    <p align="left" class="list-group-item-text">
                       Current state: ${relay.state}
                     </p>
+                    <p align="right" class="list-group-item-text">
+                      <input type="checkbox">
+                    </p>
+                  
+                  
                   </a>
                 </c:forEach>
               </c:if>
@@ -103,5 +114,6 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
   </body>
 </html>
