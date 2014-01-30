@@ -2,13 +2,13 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>NetControllerUI</title>
 </head>
 <body>
 <h1>
-	Hello world!  
+	NetControllerUI
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  Sensor temperature is ${sensorTemp}. </P>
 </body>
 </html>
