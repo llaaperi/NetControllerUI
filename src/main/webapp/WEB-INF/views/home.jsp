@@ -51,7 +51,7 @@
 	  </div>
       
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-md-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
 			  <h3 class="panel-title">Sensors</h3>
@@ -74,7 +74,7 @@
           </div> <!-- end panel -->
         </div>
         
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-md-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Relays</h3>
@@ -85,19 +85,24 @@
               <!-- ADD RELAYS -->
               <c:if test="${not empty relays}">
                 <c:forEach var="relay" varStatus="status" items="${relays}">
-                  <a href="relay?id=${relay.id}" class="list-group-item">
+                
+                
+                  <div class="list-group-item relay-list-group-item">
+                    <div class="row">
+                  	  <div class="col-md-8" align="left">
+                  	    <a href="relay" class="list-group-item">
+                          <h4 class="list-group-item-heading">${relay.name}</h4>
+                          <p align="left" class="list-group-item-text">
+                            Current state: ${relay.state}
+                          </p>
+                        </a>
+                      </div>
+                      <div class="col-md-4" align="right">
+                        <input type="checkbox" onchange="relayToggle(${relay.id})" <c:if test="${relay.state}">checked</c:if>>
+                      </div>
+                    </div>
+                  </div> <!-- relay-list-group-item -->
                   
-                  
-                    <h4 class="list-group-item-heading">${relay.name}</h4>
-                    <p align="left" class="list-group-item-text">
-                      Current state: ${relay.state}
-                    </p>
-                    <p align="right" class="list-group-item-text">
-                      <input type="checkbox">
-                    </p>
-                  
-                  
-                  </a>
                 </c:forEach>
               </c:if>
               
@@ -115,5 +120,21 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-switch.js"></script>
+    
+    <script type="text/javascript">
+      $(function(){
+	    // initialize all the inputs
+	    $('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
+      });
+      
+      
+      function relayToggle(id){
+    	console.log("Toggle relay " + id);
+      }
+      
+    </script>
+    
+    
+    
   </body>
 </html>

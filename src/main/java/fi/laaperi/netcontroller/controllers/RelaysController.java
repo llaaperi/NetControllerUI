@@ -38,4 +38,13 @@ public class RelaysController {
 		return "redirect:/#";
 	}
 	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/relay/toggle", method = RequestMethod.GET)
+	public String toggle(Locale locale, Model model) {
+		logger.info("Relay");
+		return "redirect:/#";
+	}
+	
 }
