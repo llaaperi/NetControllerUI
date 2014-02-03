@@ -21,13 +21,13 @@ public class ControllerServiceImpl implements ControllerService {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerServiceImpl.class);
 	
 	//Sensor messages
-	public static final String GET_SENSORS = "sensor:get:all";
-	public static final String GET_SENSOR = "sensor:get:";	// + id
+	public static final String GET_SENSORS = "s:g:a";
+	public static final String GET_SENSOR = "s:g:";	// + id
 	
 	//Relay messages
-	public static final String GET_RELAYS = "relay:get:all";
-	public static final String GET_RELAY = "relay:get:";	// + id
-	public static final String SET_RELAY = "relay:set:";	// + id
+	public static final String GET_RELAYS = "r:g:a";
+	public static final String GET_RELAY = "r:g:";	// + id
+	public static final String SET_RELAY = "r:s:";	// + id
 	
 	
 	@Autowired

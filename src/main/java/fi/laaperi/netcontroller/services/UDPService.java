@@ -18,9 +18,9 @@ public class UDPService {
 	private static final Logger logger = LoggerFactory.getLogger(UDPService.class);
 	
 	public static final int PORT = 9876;
-	public static final String IP = "localhost";
+	public static final String IP = "10.0.0.99";
 	public static final int TIMEOUT = 1000;
-	private static final boolean MOCK = true;
+	private static final boolean MOCK = false;
 	
 	private ExecutorService executorService = Executors.newCachedThreadPool();
 	private MockController mockController;

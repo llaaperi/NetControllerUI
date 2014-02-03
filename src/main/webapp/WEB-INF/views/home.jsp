@@ -127,9 +127,23 @@
 	    $('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
       });
       
-      
+      var last_call = 0;
       function relayToggle(id){
-    	console.log("Toggle relay " + id);
+    	  //Remove possible duplicate events
+    	  var time = new Date().getTime();
+    	  if((time - last_call) > 100){
+    		  last_call = time;
+    		  
+    		  console.log("Toggle relay " + id);
+    		  $.ajax({
+        		  type: "POST",
+        		  url: "relay/toggle",
+        		  data: {id:id},
+        		  success: function(){
+        			  console.log("OK");
+        		  }
+			  });
+    	  }
       }
       
     </script>

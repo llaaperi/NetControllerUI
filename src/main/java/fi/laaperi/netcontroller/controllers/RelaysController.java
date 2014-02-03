@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.laaperi.netcontroller.services.ControllerService;
 
@@ -41,10 +43,12 @@ public class RelaysController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/relay/toggle", method = RequestMethod.GET)
-	public String toggle(Locale locale, Model model) {
-		logger.info("Relay");
-		return "redirect:/#";
+	@RequestMapping(value = "/relay/toggle", method = RequestMethod.POST)
+	@ResponseBody
+	public String toggle(@RequestParam("id")long id) {
+		logger.info("Toggle relay " + id);
+		controller.setState(id, true);
+		return "OK";
 	}
 	
 }
