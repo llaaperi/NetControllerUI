@@ -112,11 +112,11 @@ public class MockController implements Runnable{
 	 */
 	private String produceResponse(String msg){
 		
-		if(msg.startsWith("sensor")){
+		if(msg.startsWith("s")){
 			return produceSensorData(msg);
 		}
 		
-		if(msg.startsWith("relay")){
+		if(msg.startsWith("r")){
 			return produceRelayData(msg);
 		}
 		

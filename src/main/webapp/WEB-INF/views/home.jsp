@@ -14,7 +14,7 @@
   </head>
   <body>
   
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -51,7 +51,7 @@
 	  </div>
       
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
 			  <h3 class="panel-title">Sensors</h3>
@@ -61,12 +61,25 @@
               <!-- ADD SENSORS -->
               <c:if test="${not empty sensors}">
                 <c:forEach var="sensor" varStatus="status" items="${sensors}">
-                  <a href="sensor?id=${sensor.id}" class="list-group-item">
-                    <h4 class="list-group-item-heading">${sensor.name}</h4>
-                    <p class="list-group-item-text">
-                      Current value: ${sensor.value}
-                    </p>
-                  </a>
+                  
+                  <div class="list-group-item relay-list-group-item">
+                    <div class="row">
+                      <div class="col-sm-8" align="left">
+                        <a href="sensor?id=${sensor.id}" class="list-group-item">
+                          <h4 class="list-group-item-heading">${sensor.name}</h4>
+                          <p class="list-group-item-text">
+                            Min: ${sensor.value} Max: ${sensor.value}
+                          </p>
+                        </a>
+                      </div>
+                      <div class="col-sm-4" align="center">
+                        <p id="sensor${sensor.id}" style="font-size: 24px;">
+                          ${sensor.value}
+                        </p>
+                      </div>
+                    </div>
+                  </div> <!-- relay-list-group-item -->
+                  
                 </c:forEach>
               </c:if>
               
@@ -74,7 +87,7 @@
           </div> <!-- end panel -->
         </div>
         
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Relays</h3>
@@ -89,16 +102,22 @@
                 
                   <div class="list-group-item relay-list-group-item">
                     <div class="row">
-                  	  <div class="col-md-8" align="left">
+                  	  <div class="col-sm-8" align="left">
                   	    <a href="relay" class="list-group-item">
                           <h4 class="list-group-item-heading">${relay.name}</h4>
-                          <p align="left" class="list-group-item-text">
-                            Current state: ${relay.state}
+                          <p id="state${relay.id}" align="left" class="list-group-item-text">
+                            <c:if test="${relay.state}">
+                              <p id="state${relay.id}text" style="color:green">Current state: ${relay.state}</p>
+                            </c:if>
+                            <c:if test="${not relay.state}">
+                              <p id="state${relay.id}text">Current state: ${relay.state}</p>
+                            </c:if>
+                            
                           </p>
                         </a>
                       </div>
-                      <div class="col-md-4" align="right">
-                        <input type="checkbox" onchange="relayToggle(${relay.id})" <c:if test="${relay.state}">checked</c:if>>
+                      <div class="col-sm-4" align="center">
+                        <input id="${relay.id}" type="checkbox" onchange="relayToggle(${relay.id})" <c:if test="${relay.state}">checked</c:if>>
                       </div>
                     </div>
                   </div> <!-- relay-list-group-item -->
@@ -120,11 +139,19 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-switch.js"></script>
+    <script src="js/rainbowvis.js"></script>
     
     <script type="text/javascript">
       $(function(){
 	    // initialize all the inputs
 	    $('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
+	    
+	    var rainbow = new Rainbow(); 
+	    rainbow.setNumberRange(-20, 30);
+	    rainbow.setSpectrum('blue', 'red');
+	    $("#sensor0").css("color", "#"+rainbow.colourAt(-20));
+	    $("#sensor1").css("color", "#"+rainbow.colourAt(30));
+	    $("#sensor2").css("color", "#"+rainbow.colourAt(30));
       });
       
       var last_call = 0;
@@ -141,6 +168,12 @@
         		  data: {id:id},
         		  success: function(){
         			  console.log("OK");
+        			  if($("#"+id).is(":checked")){
+        				  $("#state"+id+"text").text("Current state: true").css("color","green");
+        			  }else{
+        				  $("#state"+id+"text").text("Current state: false").css("color","");
+        			  }
+        			  
         		  }
 			  });
     	  }
