@@ -1,8 +1,14 @@
 package fi.laaperi.netcontroller.repository;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Relay {
 	
+	@Id
 	private long id;
+	
 	private String name;
 	private boolean state;	//true = open, false = closed
 	
