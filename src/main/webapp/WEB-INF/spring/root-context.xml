@@ -10,8 +10,6 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:component-scan base-package="fi.laaperi.netcontroller" />
 	
-	<!-- 
 	<import resource="hibernate.xml"/>
-	-->
 	
 </beans>
