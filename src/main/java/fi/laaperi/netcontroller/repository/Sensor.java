@@ -11,6 +11,8 @@ public class Sensor {
 	
 	private String name;
 	private float value;
+	private float min;
+	private float max;
 	
 	public Sensor(){}
 	
@@ -38,7 +40,37 @@ public class Sensor {
 	public void setValue(float value) {
 		this.value = value;
 	}
+	
+	public float getMin() {
+		return min;
+	}
+
+	public void setMin(float min) {
+		this.min = min;
+	}
+	
+	public void resetMin(){
+		this.min = this.value;
+	}
+	
+	public float getMax() {
+		return max;
+	}
+
+	public void setMax(float max) {
+		this.max = max;
+	}
+	
+	public void resetMax(){
+		this.max = this.value;
+	}
+	
+	public void resetMinMax(){
+		resetMin();
+		resetMax();
+	}
+	
 	public String toString(){
-		return "{id=" + id + ", name=" + name + ", value=" + value + "}";
+		return "{id=" + id + ", name=" + name + ", value=" + value + ", min=" + min + ", max=" + max + "}";
 	}
 }

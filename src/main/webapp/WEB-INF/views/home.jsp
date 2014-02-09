@@ -68,7 +68,7 @@
                         <a href="sensor?id=${sensor.id}" class="list-group-item">
                           <h4 class="list-group-item-heading">${sensor.name}</h4>
                           <p class="list-group-item-text">
-                            Min: ${sensor.value} Max: ${sensor.value}
+                            Min: ${sensor.min} Max: ${sensor.max}
                           </p>
                         </a>
                       </div>

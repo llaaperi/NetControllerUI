@@ -3,8 +3,10 @@ package fi.laaperi.netcontroller.repository;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +22,8 @@ public class RelayDao {
 	
 	@Transactional
 	public void persist(Relay relay) {
-		logger.debug("Persist relay " + relay.getId());
+		logger.debug("Persist relay " + relay);
 		Session session = sessionFactory.getCurrentSession();
-		if(relay.getName() == null){
-			relay.setName("Relay " + relay.getId());
-		}
 		session.saveOrUpdate(relay);
 	}
 	
@@ -48,8 +47,10 @@ public class RelayDao {
 	public List<Relay> getAll() {
 		logger.debug("Get all relays");
 		Session session = sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Relay.class);
+		cr.addOrder(Order.asc("id"));
 		@SuppressWarnings("unchecked")
-		List<Relay> relays = session.createCriteria(Relay.class).list();
+		List<Relay> relays = cr.list();
 		return relays;
 	}
 	

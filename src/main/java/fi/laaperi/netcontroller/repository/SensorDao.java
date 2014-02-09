@@ -3,8 +3,10 @@ package fi.laaperi.netcontroller.repository;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +22,8 @@ public class SensorDao {
 	
 	@Transactional
 	public void persist(Sensor sensor) {
-		logger.debug("Persist sensor " + sensor.getId());
+		logger.debug("Persist sensor " + sensor);
 		Session session = sessionFactory.getCurrentSession();
-		if(sensor.getName() == null){
-			sensor.setName("Sensor " + sensor.getId());
-		}
 		session.saveOrUpdate(sensor);
 	}
 	
@@ -49,8 +48,10 @@ public class SensorDao {
 	public List<Sensor> getAll() {
 		logger.debug("Get all sensors");
 		Session session = sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Sensor.class);
+		cr.addOrder(Order.asc("id"));
 		@SuppressWarnings("unchecked")
-		List<Sensor> sensors = session.createCriteria(Sensor.class).list();
+		List<Sensor> sensors = cr.list();
 		return sensors;
 	}
 	

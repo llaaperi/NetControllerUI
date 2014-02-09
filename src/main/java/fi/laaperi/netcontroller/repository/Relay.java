@@ -42,4 +42,8 @@ public class Relay {
 		return state;
 	}
 	
+	public String toString(){
+		return "{id=" + id + ", name=" + name + ", state=" + state + "}";
+	}
+	
 }
