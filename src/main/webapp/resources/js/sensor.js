@@ -9,5 +9,33 @@ function updateSensor(sensor){
 }
 
 function openSensorModal(id){
-	$('#sensorModal').modal('show');	
+	
+	$.ajax({ 
+        type: 'GET', 
+        url: '/netcontroller/sensor', 
+        data: { id:id }, 
+        success: function (sensor) { 
+        	initSensorModal(sensor);
+        	$('#sensorModal').modal('show');
+        }
+    });
+}
+
+function initSensorModal(sensor){
+	$('#sensorModalTitle').val(sensor.name);
+	
+	$('#sensorModalSave').unbind('click');
+	$('#sensorModalSave').click(function(){
+		console.log("Save sensor ", sensor.id);
+		var name = $('#sensorModalTitle').val();
+		$.ajax({ 
+	        type: 'POST', 
+	        url: '/netcontroller/sensor/rename', 
+	        data: { id:sensor.id, name:name }, 
+	        success: function () {
+	        	$('#sensor'+sensor.id+'name').html(name);
+	        	$('#sensorModal').modal('hide');
+	        }
+	    });
+	});
 }

@@ -66,7 +66,7 @@
                     <div class="row">
                       <div class="col-sm-8" align="left">
                         <a onclick="openSensorModal(${sensor.id})" href="javascript:void(0);" class="list-group-item">
-                          <h4 class="list-group-item-heading">${sensor.name}</h4>
+                          <h4 id="sensor${sensor.id}name" class="list-group-item-heading">${sensor.name}</h4>
                           <p class="list-group-item-text">
                             Min: ${sensor.min} Max: ${sensor.max}
                           </p>
