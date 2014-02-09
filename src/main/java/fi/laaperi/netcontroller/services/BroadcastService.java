@@ -16,18 +16,18 @@ public class BroadcastService {
 	
 	
 	public BroadcastService(){
-	    logger.info("BS created");
+	    logger.debug("BS created");
 	}
 	
 	public void broadcast(String message) {
-		logger.info("Broadcasting message:"+message+" to " + broadcastTokens.size() +" recepients" ); 
+		logger.debug("Broadcasting message:"+message+" to " + broadcastTokens.size() +" recepients" ); 
 		for (Broadcaster token : broadcastTokens.values()) {
 				token.broadcast(message);
 		}
 	}
  
 	public void addBroadcastToken(Broadcaster token) {
-		logger.info("Added token " + token.getID() + " - n=" + broadcastTokens.size());
+		logger.debug("Added token " + token.getID() + " - n=" + broadcastTokens.size());
 		broadcastTokens.put("channel", token);
 	}
  

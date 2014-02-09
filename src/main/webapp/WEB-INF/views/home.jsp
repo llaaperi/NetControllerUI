@@ -65,7 +65,7 @@
                   <div class="list-group-item relay-list-group-item">
                     <div class="row">
                       <div class="col-sm-8" align="left">
-                        <a href="sensor?id=${sensor.id}" class="list-group-item">
+                        <a onclick="openSensorModal(${sensor.id})" href="javascript:void(0);" class="list-group-item">
                           <h4 class="list-group-item-heading">${sensor.name}</h4>
                           <p class="list-group-item-text">
                             Min: ${sensor.min} Max: ${sensor.max}
@@ -103,7 +103,7 @@
                   <div class="list-group-item relay-list-group-item">
                     <div class="row">
                   	  <div class="col-sm-8" align="left">
-                  	    <a href="relay" class="list-group-item">
+                  	    <a onclick="openRelayModal(${relay.id})" href="javascript:void(0);" class="list-group-item">
                           <h4 class="list-group-item-heading">${relay.name}</h4>
                           <p id="state${relay.id}" align="left" class="list-group-item-text">
                             <c:if test="${relay.state}">
@@ -131,8 +131,10 @@
         
       </div>
       
+      <%@ include file="sensorModal.jsp" %>
+      <%@ include file="relayModal.jsp" %>
       
-    </div>
+    </div> <!-- end container -->
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -152,31 +154,6 @@
 		$(document).ready(function(){
 			sync();
 		});
-      
-      var last_call = 0;
-      function relayToggle(id){
-    	  //Remove possible duplicate events
-    	  var time = new Date().getTime();
-    	  if((time - last_call) > 100){
-    		  last_call = time;
-    		  
-    		  console.log("Toggle relay " + id);
-    		  $.ajax({
-        		  type: "POST",
-        		  url: "relay/toggle",
-        		  data: {id:id},
-        		  success: function(){
-        			  console.log("OK");
-        			  if($("#"+id).is(":checked")){
-        				  $("#state"+id+"text").text("Current state: true").css("color","green");
-        			  }else{
-        				  $("#state"+id+"text").text("Current state: false").css("color","");
-        			  }
-        			  
-        		  }
-			  });
-    	  }
-      }
       
     </script>
     

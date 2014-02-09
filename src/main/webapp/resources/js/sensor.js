@@ -7,3 +7,7 @@ function updateSensor(sensor){
 	$("#sensor"+sensor.id).html(sensor.value.toFixed(1));
 	$("#sensor"+sensor.id).css("color", "#"+rainbow.colourAt(sensor.value));
 }
+
+function openSensorModal(id){
+	$('#sensorModal').modal('show');	
+}
