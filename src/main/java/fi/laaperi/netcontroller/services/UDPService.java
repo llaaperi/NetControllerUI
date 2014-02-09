@@ -37,7 +37,7 @@ public class UDPService {
 	}
 	
 	public String sendMessage(String msg) {
-		logger.info("Sending message: " + msg);
+		logger.debug("Sending message: " + msg);
 		
 		String response = "";
 		try {
@@ -56,7 +56,7 @@ public class UDPService {
 			
 			response = new String(receivePacket.getData());
 			
-			logger.info("Message received: " + response);
+			logger.debug("Message received: " + response);
 			socket.close();
 			
 		} catch (SocketTimeoutException e) {

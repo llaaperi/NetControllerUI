@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.laaperi.netcontroller.repository.Relay;
+import fi.laaperi.netcontroller.repository.RelayDao;
 import fi.laaperi.netcontroller.repository.Sensor;
+import fi.laaperi.netcontroller.repository.SensorDao;
 import fi.laaperi.netcontroller.services.ControllerService;
 
 /**
@@ -25,7 +27,10 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
-	ControllerService controller;
+	SensorDao sensorDao;
+	
+	@Autowired
+	RelayDao relayDao;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -34,8 +39,8 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Home");
 		
-		List<Sensor> sensors = controller.getSensors();
-		List<Relay> relays = controller.getRelays();
+		List<Sensor> sensors = sensorDao.getAll();
+		List<Relay> relays = relayDao.getAll();
 		
 		model.addAttribute("sensors", sensors);
 		model.addAttribute("relays", relays);

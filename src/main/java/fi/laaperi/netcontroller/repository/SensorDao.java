@@ -20,23 +20,26 @@ public class SensorDao {
 	
 	@Transactional
 	public void persist(Sensor sensor) {
-		logger.info("Persist sensor " + sensor.getName());
+		logger.debug("Persist sensor " + sensor.getId());
 		Session session = sessionFactory.getCurrentSession();
+		if(sensor.getName() == null){
+			sensor.setName("Sensor " + sensor.getId());
+		}
 		session.saveOrUpdate(sensor);
 	}
 	
 	@Transactional
 	public void persistAll(List<Sensor> sensors){
-		logger.info("Persist " + sensors.size() + " sensors");
-		Session session = sessionFactory.getCurrentSession();
+		logger.debug("Persist " + sensors.size() + " sensors");
 		for(Sensor sensor : sensors){
-			session.saveOrUpdate(sensor);
+			persist(sensor);
 		}
 	}
 	
+	
 	@Transactional
 	public Sensor findById(Long id) {
-		logger.info("Find sensor with id " + id);
+		logger.debug("Find sensor with id " + id);
 		Session session = sessionFactory.getCurrentSession();
 		Sensor sensor = (Sensor)session.get(Sensor.class, id);
 		return sensor;
@@ -44,7 +47,7 @@ public class SensorDao {
 	
 	@Transactional
 	public List<Sensor> getAll() {
-		logger.info("Get all sensors");
+		logger.debug("Get all sensors");
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
 		List<Sensor> sensors = session.createCriteria(Sensor.class).list();
@@ -53,7 +56,7 @@ public class SensorDao {
 	
 	@Transactional
 	public void delete(long id){
-		logger.info("Delete sensor with id " + id);
+		logger.debug("Delete sensor with id " + id);
 		Session session = sessionFactory.getCurrentSession();
 		Sensor sensor = (Sensor)session.get(Sensor.class, id);
 		session.delete(sensor);

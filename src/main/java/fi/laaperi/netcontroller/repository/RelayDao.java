@@ -20,23 +20,25 @@ public class RelayDao {
 	
 	@Transactional
 	public void persist(Relay relay) {
-		logger.info("Persist relay " + relay.getName());
+		logger.debug("Persist relay " + relay.getId());
 		Session session = sessionFactory.getCurrentSession();
+		if(relay.getName() == null){
+			relay.setName("Relay " + relay.getId());
+		}
 		session.saveOrUpdate(relay);
 	}
 	
 	@Transactional
 	public void persistAll(List<Relay> relays){
-		logger.info("Persist " + relays.size() + " relays");
-		Session session = sessionFactory.getCurrentSession();
+		logger.debug("Persist " + relays.size() + " relays");
 		for(Relay relay : relays){
-			session.saveOrUpdate(relay);
+			persist(relay);
 		}
 	}
 	
 	@Transactional
 	public Relay findById(Long id) {
-		logger.info("Find relay with id " + id);
+		logger.debug("Find relay with id " + id);
 		Session session = sessionFactory.getCurrentSession();
 		Relay relay = (Relay)session.get(Relay.class, id);
 		return relay;
@@ -44,7 +46,7 @@ public class RelayDao {
 	
 	@Transactional
 	public List<Relay> getAll() {
-		logger.info("Get all relays");
+		logger.debug("Get all relays");
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
 		List<Relay> relays = session.createCriteria(Relay.class).list();
@@ -53,7 +55,7 @@ public class RelayDao {
 	
 	@Transactional
 	public void delete(long id){
-		logger.info("Delete relay with id " + id);
+		logger.debug("Delete relay with id " + id);
 		Session session = sessionFactory.getCurrentSession();
 		Relay relay = (Relay)session.get(Relay.class, id);
 		session.delete(relay);

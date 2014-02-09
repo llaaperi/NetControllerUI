@@ -14,7 +14,7 @@ import fi.laaperi.netcontroller.repository.Sensor;
 import fi.laaperi.netcontroller.repository.SensorDao;
 
 @Service
-public class ControllerSync implements Runnable {
+public class ControllerSync {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ControllerSync.class);
 	
@@ -39,16 +39,6 @@ public class ControllerSync implements Runnable {
 		List<Relay> relays = controller.getRelays();
 		if(relays != null){
 			relayDao.persistAll(relays);
-		}
-	}
-	
-	@Override
-	public void run() {
-		
-		try {
-			Thread.sleep(SYNC_INTERVAL);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 
