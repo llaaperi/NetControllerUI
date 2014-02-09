@@ -10,7 +10,7 @@ function openRelayModal(id){
 	
 	$.ajax({ 
         type: 'GET', 
-        url: '/netcontroller/relay', 
+        url: 'relay', 
         data: { id:id }, 
         success: function (relay) { 
         	initRelayModal(relay);
@@ -28,7 +28,7 @@ function initRelayModal(relay){
 		var name = $('#relayModalTitle').val();
 		$.ajax({ 
 	        type: 'POST', 
-	        url: '/netcontroller/relay/rename', 
+	        url: 'relay/rename', 
 	        data: { id:relay.id, name:name }, 
 	        success: function () {
 	        	$('#relay'+relay.id+'name').html(name);

@@ -12,7 +12,7 @@ function openSensorModal(id){
 	
 	$.ajax({ 
         type: 'GET', 
-        url: '/netcontroller/sensor', 
+        url: 'sensor', 
         data: { id:id }, 
         success: function (sensor) { 
         	initSensorModal(sensor);
@@ -30,7 +30,7 @@ function initSensorModal(sensor){
 		var name = $('#sensorModalTitle').val();
 		$.ajax({ 
 	        type: 'POST', 
-	        url: '/netcontroller/sensor/rename', 
+	        url: 'sensor/rename', 
 	        data: { id:sensor.id, name:name }, 
 	        success: function () {
 	        	$('#sensor'+sensor.id+'name').html(name);

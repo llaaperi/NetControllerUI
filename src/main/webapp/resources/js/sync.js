@@ -1,7 +1,7 @@
 function sync(){
 	console.log('Start sync');
 	var socket = $.atmosphere;
-	var request = { url: '/netcontroller/stream',
+	var request = { url: 'stream',
 			contentType : "application/json",
 			logLevel : 'debug',
 			transport : 'websocket' ,
