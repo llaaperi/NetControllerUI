@@ -104,7 +104,7 @@
                     <div class="row">
                   	  <div class="col-sm-8" align="left">
                   	    <a onclick="openRelayModal(${relay.id})" href="javascript:void(0);" class="list-group-item">
-                          <h4 class="list-group-item-heading">${relay.name}</h4>
+                          <h4 id="relay${relay.id}name" class="list-group-item-heading">${relay.name}</h4>
                           <p id="state${relay.id}" align="left" class="list-group-item-text">
                             <c:if test="${relay.state}">
                               <p id="state${relay.id}text" style="color:green">Current state: ${relay.state}</p>

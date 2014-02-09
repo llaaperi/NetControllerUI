@@ -60,7 +60,7 @@ public class SensorsController {
 	
 	@RequestMapping(value = "/sensor/rename", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public void addItem(@RequestParam("id")long id,
+	public void rename(@RequestParam("id")long id,
 						@RequestParam("name")String name) {
 		logger.info("Rename sensor " + id + " to " + name);
 		Sensor sensor = sensorDao.findById(id);

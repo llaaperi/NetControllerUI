@@ -5,7 +5,7 @@
 	
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4 class="modal-title">Relay</h4>
+			<input id="relayModalTitle" class="form-control name-input" type="text"/>
 		</div>
 		
 		<div class="modal-body">
@@ -14,7 +14,7 @@
 		
 		<div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
+			<button type="button" class="btn btn-primary" id="relayModalSave">Save changes</button>
 		</div>
 		
 		</div> <!-- end modal-content -->

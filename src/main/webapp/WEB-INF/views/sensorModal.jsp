@@ -2,11 +2,10 @@
 <div id="sensorModal" class="modal fade">
 	<div class="modal-dialog">
 	<div class="modal-content">
-		<form></form>
+		
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			<input id="sensorModalTitle" class="form-control name-input" type="text"/>
-			<!-- <h4 id="sensorModalTitle" class="modal-title">Sensor</h4>  -->
 		</div>
 		
 		<div class="modal-body">

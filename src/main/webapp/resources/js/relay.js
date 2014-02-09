@@ -6,6 +6,38 @@ function openRelayModal(id){
 	$('#relayModal').modal('show');	
 }
 
+function openRelayModal(id){
+	
+	$.ajax({ 
+        type: 'GET', 
+        url: '/netcontroller/relay', 
+        data: { id:id }, 
+        success: function (relay) { 
+        	initRelayModal(relay);
+        	$('#relayModal').modal('show');
+        }
+    });
+}
+
+function initRelayModal(relay){
+	$('#relayModalTitle').val(relay.name);
+	
+	$('#relayModalSave').unbind('click');
+	$('#relayModalSave').click(function(){
+		console.log("Save relay ", relay.id);
+		var name = $('#relayModalTitle').val();
+		$.ajax({ 
+	        type: 'POST', 
+	        url: '/netcontroller/relay/rename', 
+	        data: { id:relay.id, name:name }, 
+	        success: function () {
+	        	$('#relay'+relay.id+'name').html(name);
+	        	$('#relayModal').modal('hide');
+	        }
+	    });
+	});
+}
+
 var last_call = 0;
 function relayToggle(id){
 	  //Remove possible duplicate events
