@@ -3,6 +3,9 @@ package fi.laaperi.netcontroller.controllers;
 import java.util.List;
 import java.util.Locale;
 
+import org.atmosphere.cpr.AtmosphereResource;
+import org.atmosphere.cpr.Broadcaster;
+import org.atmosphere.jersey.Broadcastable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import fi.laaperi.netcontroller.repository.Relay;
 import fi.laaperi.netcontroller.repository.RelayDao;
 import fi.laaperi.netcontroller.repository.Sensor;
 import fi.laaperi.netcontroller.repository.SensorDao;
+import fi.laaperi.netcontroller.services.BroadcastService;
 import fi.laaperi.netcontroller.services.ControllerService;
 
 /**
@@ -25,6 +29,9 @@ import fi.laaperi.netcontroller.services.ControllerService;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	BroadcastService broadcastService;
 	
 	@Autowired
 	SensorDao sensorDao;
@@ -46,6 +53,16 @@ public class HomeController {
 		model.addAttribute("relays", relays);
 		
 		return "home";
+	}
+	
+	@RequestMapping(value="/stream", method=RequestMethod.GET)
+	@ResponseBody
+	public Broadcastable messageAsync(AtmosphereResource r){
+		logger.info("Stream");
+		r.suspend();
+		final Broadcaster bc = r.getBroadcaster();
+        broadcastService.addBroadcastToken(bc);
+        return new Broadcastable(bc);
 	}
 	
 	/**

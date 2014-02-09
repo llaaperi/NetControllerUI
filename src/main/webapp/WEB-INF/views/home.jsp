@@ -137,20 +137,21 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/2.0.1/js/bootstrap-switch.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.atmosphere/2.1.2/jquery.atmosphere.min.js"></script>
     <script src="js/rainbowvis.js"></script>
+    <script src="js/sensor.js"></script>
+    <script src="js/relay.js"></script>
+    <script src="js/sync.js"></script>
     
     <script type="text/javascript">
-      $(function(){
-	    // initialize all the inputs
-	    $('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
-	    
-	    var rainbow = new Rainbow(); 
-	    rainbow.setNumberRange(-20, 30);
-	    rainbow.setSpectrum('blue', 'red');
-	    $("#sensor0").css("color", "#"+rainbow.colourAt(-20));
-	    $("#sensor1").css("color", "#"+rainbow.colourAt(30));
-	    $("#sensor2").css("color", "#"+rainbow.colourAt(30));
-      });
+      	$(function(){
+	    	// initialize all the inputs
+	    	$('input[type="checkbox"],[type="radio"]').bootstrapSwitch();
+      	});
+      
+		$(document).ready(function(){
+			sync();
+		});
       
       var last_call = 0;
       function relayToggle(id){

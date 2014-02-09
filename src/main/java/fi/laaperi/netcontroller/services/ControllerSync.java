@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+
 import fi.laaperi.netcontroller.repository.Relay;
 import fi.laaperi.netcontroller.repository.RelayDao;
 import fi.laaperi.netcontroller.repository.Sensor;
@@ -18,7 +20,10 @@ public class ControllerSync {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ControllerSync.class);
 	
-	private static final long SYNC_INTERVAL = 1000;
+	private static final long SYNC_INTERVAL = 2000;
+	
+	@Autowired
+	BroadcastService broadcaster;
 	
 	@Autowired
 	ControllerService controller;
@@ -34,14 +39,21 @@ public class ControllerSync {
 		logger.debug("Sync controller");
 		
 		//Get current data
-		List<Sensor> sensors = controller.getSensors();
-		if(sensors != null){
-			updateSensors(sensors);
+		List<Sensor> newSensors = controller.getSensors();
+		if(newSensors != null){
+			updateSensors(newSensors);
 		}
-		List<Relay> relays = controller.getRelays();
-		if(relays != null){
-			updateRelays(relays);
+		List<Relay> newRelays = controller.getRelays();
+		if(newRelays != null){
+			updateRelays(newRelays);
 		}
+		
+		Gson gson = new Gson();
+		List<Sensor> sensors = sensorDao.getAll();
+		broadcaster.broadcast(gson.toJson(sensors));
+		
+		List<Relay> relays = relayDao.getAll();
+		broadcaster.broadcast(gson.toJson(relays));
 	}
 	
 	private void updateSensors(List<Sensor> newSensors){
